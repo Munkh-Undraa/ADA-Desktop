@@ -1,0 +1,14 @@
+{
+  "name": "exp3",
+  "version": "1.0.0",
+  "description": "ADA",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Turmunkh",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^22.0.1"
+  }
+}
