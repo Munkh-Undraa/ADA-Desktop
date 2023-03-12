@@ -1,42 +1,41 @@
-// npm i --save-dev electron 
-// before starting the app
+<html>
 
-const electron = require('electron')
-    const { app, BrowserWindow, Menu } = electron
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <title>ADA</title>
+</head>
 
-    let mainWindow
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo center">Auto Diagnostic Audio</a>
+    </div>
+  </nav>
+  <ul class="collection "></ul>
 
-    const createMainWindow = () => {
-        mainWindow = new BrowserWindow({
-            width: 800,
-            height: 600,
-            webPreferences: {
-                nodeIntegration: true,
-                contextIsolation: false
-            }
-        })
-        mainWindow.loadFile('index.html')
+  <button class="btn waves-effect waves-light" id="left" onmousedown="collect(0)"
+    onmouseup="collect(null)">Left</button>
+  <button class="btn waves-effect waves-light" id="right" onmousedown="collect(1)"
+    onmouseup="collect(null)">Right</button>
+  <button class="btn waves-effect waves-light" id="noise" onmousedown="collect(2)"
+    onmouseup="collect(null)">Noise</button>
 
-        console.log("Main window created");
-        mainWindow.setMenu(null)
+  <br /><br />
+  <button class="btn waves-effect waves-light" id="train" onclick="train()">Train</button>
 
-        mainWindow.on('closed', function () {
-            app.quit()
-        })
-    }
+  <br /><br />
+  <button class="btn waves-effect waves-light" id="listen" onclick="listen()">Listen</button>
+  <input class="btn waves-effect waves-light" type="range" id="output" min="0" max="10" step="0.1">
 
-    app.whenReady().then(() => {
-        createMainWindow()
+  <div id="console"></div>
+  <script src="model.js"></script>
+  <div id="results">
+    <p id="Left"></p>
+    <p id="Right"></p>
+    <p id="Background"></p>   
+  </div>
+</body>
 
-        app.on('activate', () => {
-            if (BrowserWindow.getAllWindows().length === 0) {
-                createMainWindow()
-            }
-        })
-    })
-
-    app.on('window-all-closed', () => {
-        if (process.platform !== 'darwin') {
-            app.quit()
-        }
-    })
+</html>
